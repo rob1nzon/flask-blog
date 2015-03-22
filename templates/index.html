@@ -4,7 +4,7 @@
 	<body>
 		<div id="wrapper">
 			{%- block nav -%}{%- include 'nav.html' -%}{%- endblock -%}
-			<div class="container">
+			<div class="container">/w
 				{%- block body -%}
 					{%- if posts -%}
 						{%- for post in posts -%}
@@ -53,8 +53,7 @@
 					<div class="pagination-wrap">
 						<ul class="pagination">
 						  {% for page in pagination.iter_pages() %}
-						    {% if page %}
-						        <li {% if page == pagination.page %}class="active"{% endif %}><a href="{{ url_for_other_page(page) }}">{{ page }}</a></li>
+						    {% if page %}nja2 <li {% if page == pagination.page %}class="active"{% endif %}><a href="{{ url_for_other_page(page) }}">{{ page }}</a></li>
 						    {% else %}
 						      <li><span class=ellipsis>…</span></li>
 						    {% endif %}

@@ -1,3 +1,4 @@
+import twi
 import cgi
 import os
 from flask import Flask, render_template, abort, url_for, request, flash, session, redirect
@@ -29,8 +30,9 @@ def index(page):
     skip = (page - 1) * int(app.config['PER_PAGE'])
     posts = postClass.get_posts(int(app.config['PER_PAGE']), skip)
     count = postClass.get_total_count()
+    tw = twi.get_twit()
     pag = pagination.Pagination(page, app.config['PER_PAGE'], count)
-    return render_template('index.html', posts=posts['data'], pagination=pag, meta_title=app.config['BLOG_TITLE'])
+    return render_template('index.html', posts=posts['data'], pagination=pag, meta_title=app.config['BLOG_TITLE'],tw=tw)
 
 
 @app.route('/tag/<tag>', defaults={'page': 1})
@@ -453,5 +455,5 @@ if not app.config['DEBUG']:
     app.logger.addHandler(file_handler)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)),
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 80)),
             debug=app.config['DEBUG'])
