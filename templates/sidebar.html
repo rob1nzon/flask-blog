@@ -1,7 +1,13 @@
 {%- if recent_posts -%}
 <div class="col-lg-3 visible-lg sidebar">
     <h2>Twitter here</h2>
-    {{tw}}
+    {% for t in tw[0:3] %}    
+    {%- if t[:2]=='RT' -%}
+    <i class="icon-retweet"></i>
+    {%- endif -%}
+    {{t}}
+    <hr>
+    {% endfor %}
     <h2>Recent articles</h2>
     <hr>
     <ul>

@@ -23,8 +23,17 @@ md.register_extension(QuoteExtension)
 md.register_extension(MultilineCodeExtension)
 app.config.from_object('config')
 
-
 @app.route('/', defaults={'page': 1})
+def main(page):
+    from datetime import datetime as dt
+    a = dt(2014,07,10)-dt.now()
+
+    prog=int((float(abs(a.days))/365)*100)
+    return render_template('main.html',meta_title=app.config['BLOG_TITLE'],prog=prog)
+
+
+
+@app.route('/blog', defaults={'page': 1})
 @app.route('/page-<int:page>')
 def index(page):
     skip = (page - 1) * int(app.config['PER_PAGE'])
@@ -50,9 +59,10 @@ def posts_by_tag(tag, page):
 @app.route('/post/<permalink>')
 def single_post(permalink):
     post = postClass.get_post_by_permalink(permalink)
+    tw = twi.get_twit()
     if not post['data']:
         abort(404)
-    return render_template('single_post.html', post=post['data'], meta_title=app.config['BLOG_TITLE'] + '::' + post['data']['title'])
+    return render_template('single_post.html', post=post['data'], meta_title=app.config['BLOG_TITLE'] + '::' + post['data']['title'], tw=tw)
 
 
 @app.route('/q/<query>', defaults={'page': 1})
