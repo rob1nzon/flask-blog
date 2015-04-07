@@ -23,6 +23,11 @@ md.register_extension(QuoteExtension)
 md.register_extension(MultilineCodeExtension)
 app.config.from_object('config')
 
+
+#@app.route('/test')
+#def test:
+#    return('hi')
+
 @app.route('/', defaults={'page': 1})
 def main(page):
     from datetime import datetime as dt
