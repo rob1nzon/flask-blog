@@ -1,4 +1,5 @@
 import twi
+import granma as grn
 import cgi
 import os
 from flask import Flask, render_template, abort, url_for, request, flash, session, redirect
@@ -30,11 +31,9 @@ app.config.from_object('config')
 
 @app.route('/', defaults={'page': 1})
 def main(page):
-    from datetime import datetime as dt
-    a = dt(2014,07,10)-dt.now()
-
-    prog=int((float(abs(a.days))/365)*100)
-    return render_template('main.html',meta_title=app.config['BLOG_TITLE'],prog=prog)
+	#posts = postAchiv.get_achiv()
+	#count= db_ach.find({"Show":true})
+    return render_template('main.html',meta_title=app.config['BLOG_TITLE'])
 
 
 
@@ -238,6 +237,10 @@ def login():
                            meta_title='Login',
                            error=error,
                            error_type=error_type)
+@app.route('/granma')
+def granma():
+	dbstep = grn.get_step()
+	return render_template('granma.html', dbstep=dbstep)
 
 
 @app.route('/logout')
@@ -470,5 +473,5 @@ if not app.config['DEBUG']:
     app.logger.addHandler(file_handler)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 80)),
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8000)),
             debug=app.config['DEBUG'])

@@ -8,6 +8,7 @@ CONNECTION = pymongo.MongoClient(CONNECTION_STRING)
 DATABASE = CONNECTION.blog
 POSTS_COLLECTION = DATABASE.posts
 USERS_COLLECTION = DATABASE.users
+ACHIEV_COLLECTION = DATABASE.achiev
 SETTINGS_COLLECTION = DATABASE.settings
 
 SECRET_KEY = ""
@@ -33,4 +34,4 @@ else:
 
 LOG_FILE = "app.log"
 
-DEBUG = True  # set it to False on production
+DEBUG = False # set it to False on production

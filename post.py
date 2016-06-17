@@ -4,6 +4,16 @@ from bson.objectid import ObjectId
 from helper_functions import *
 
 
+#class Achiv:
+#	def __init__(self, default_config):
+#        self.collection = default_config['ACHIEV_COLLECTION']
+#        self.response = {'error': None, 'data': None}
+#        self.debug_mode = default_config['DEBUG']
+#	def get_achiv(self, limit, skip, tag=None, search=None):
+#		cursor = self.collection.find()
+#        return self.response
+
+
 class Post:
 
     def __init__(self, default_config):
@@ -42,8 +52,8 @@ class Post:
                                               'tags': post['tags'],
                                               'author': post['author'],
                                               'comments': post['comments']})
-        except Exception, e:
-            self.print_debug_info(e, self.debug_mode)
+        except Exception:#, e:
+            #self.print_debug_info(e, self.debug_mode)
             self.response['error'] = 'Posts not found..'
 
         return self.response
@@ -53,8 +63,9 @@ class Post:
         try:
             self.response['data'] = self.collection.find_one(
                 {'permalink': permalink})
-        except Exception, e:
-            self.print_debug_info(e, self.debug_mode)
+        except Exception:#, e:
+            pass
+            #self.print_debug_info(e, self.debug_mode)
             self.response['error'] = 'Post not found..'
 
         return self.response
@@ -72,8 +83,8 @@ class Post:
                         self.response['data']['tags'])
                 if 'preview' not in self.response['data']:
                     self.response['data']['preview'] = ''
-        except Exception, e:
-            self.print_debug_info(e, self.debug_mode)
+        except Exception:#, e:
+            #self.print_debug_info(e, self.debug_mode)
             self.response['error'] = 'Post not found..'
 
         return self.response
@@ -105,8 +116,8 @@ class Post:
             else:
                 self.response['data'] = []
 
-        except Exception, e:
-            self.print_debug_info(e, self.debug_mode)
+        except Exception:#, e:
+            #self.print_debug_info(e, self.debug_mode)
             self.response['error'] = 'Get tags error..'
 
         return self.response
@@ -115,8 +126,8 @@ class Post:
         self.response['error'] = None
         try:
             self.response['data'] = self.collection.insert(post_data)
-        except Exception, e:
-            self.print_debug_info(e, self.debug_mode)
+        except Exception:#, e:
+            #self.print_debug_info(e, self.debug_mode)
             self.response['error'] = 'Adding post error..'
 
         return self.response
@@ -130,8 +141,8 @@ class Post:
             self.collection.update(
                 {'_id': ObjectId(post_id)}, {"$set": post_data}, upsert=False)
             self.response['data'] = True
-        except Exception, e:
-            self.print_debug_info(e, self.debug_mode)
+        except Exception:#, e:
+            #self.print_debug_info(e, self.debug_mode)
             self.response['error'] = 'Post update error..'
 
         return self.response
@@ -143,8 +154,8 @@ class Post:
                 self.response['data'] = True
             else:
                 self.response['data'] = False
-        except Exception, e:
-            self.print_debug_info(e, self.debug_mode)
+        except Exception:#, e:
+            #self.print_debug_info(e, self.debug_mode)
             self.response['error'] = 'Deleting post error..'
 
         return self.response
